@@ -68,7 +68,7 @@ main(int argc, char* argv[])
     unsigned char buf[100];
     bool done = false;
     Callback callback;
-    Pl_DCT dct("dct", &out, width, height, components, cs, &callback);
+    Pl_DCT dct("dct", &out, width, height, components, 100, cs, &callback);
     while (!done) {
         size_t len = fread(buf, 1, sizeof(buf), infile);
         if (len <= 0) {

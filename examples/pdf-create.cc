@@ -97,6 +97,7 @@ ImageProvider::provideStreamData(QPDFObjGen const&, Pipeline* pipeline)
             QIntC::to_uint(width),
             QIntC::to_uint(getHeight()),
             QIntC::to_int(stripes[0].length()),
+            100,
             j_color_space);
         to_delete.push_back(p_new);
         p = p_new.get();

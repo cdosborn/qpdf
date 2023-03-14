@@ -41,6 +41,7 @@ namespace
             size_t oi_min_width,
             size_t oi_min_height,
             size_t oi_min_area,
+            int quality_level,
             QPDFObjectHandle& image);
         ~ImageOptimizer() override = default;
         void provideStreamData(QPDFObjGen const&, Pipeline* pipeline) override;
@@ -52,6 +53,7 @@ namespace
         size_t oi_min_width;
         size_t oi_min_height;
         size_t oi_min_area;
+        int quality_level;
         QPDFObjectHandle image;
     };
 
@@ -104,11 +106,13 @@ ImageOptimizer::ImageOptimizer(
     size_t oi_min_width,
     size_t oi_min_height,
     size_t oi_min_area,
+    int quality_level,
     QPDFObjectHandle& image) :
     o(o),
     oi_min_width(oi_min_width),
     oi_min_height(oi_min_height),
     oi_min_area(oi_min_area),
+    quality_level(quality_level),
     image(image)
 {
 }
@@ -191,14 +195,15 @@ ImageOptimizer::makePipeline(std::string const& description, Pipeline* next)
         return result;
     }
 
-    result = std::make_shared<Pl_DCT>("jpg", next, w, h, components, cs);
+    int quality_level = this->quality_level;
+    result = std::make_shared<Pl_DCT>("jpg", next, w, h, components, quality_level, cs);
     return result;
 }
 
 bool
 ImageOptimizer::evaluate(std::string const& description)
 {
-    if (!image.pipeStreamData(nullptr, 0, qpdf_dl_specialized, true)) {
+    if (!image.pipeStreamData(nullptr, 0, qpdf_dl_all, true)) {
         QTC::TC("qpdf", "QPDFJob image optimize no pipeline");
         o.doIfVerbose([&](Pipeline& v, std::string const& prefix) {
             v << prefix << ": " << description
@@ -2162,7 +2167,7 @@ QPDFJob::handleTransformations(QPDF& pdf)
                 [this, pageno, &pdf](
                     QPDFObjectHandle& obj, QPDFObjectHandle& xobj_dict, std::string const& key) {
                     auto io = std::make_unique<ImageOptimizer>(
-                        *this, m->oi_min_width, m->oi_min_height, m->oi_min_area, obj);
+                        *this, m->oi_min_width, m->oi_min_height, m->oi_min_area, m->jpeg_quality_level, obj);
                     if (io->evaluate("image " + key + " on page " + std::to_string(pageno))) {
                         QPDFObjectHandle new_image = pdf.newStream();
                         new_image.replaceDict(obj.getDict().shallowCopy());

@@ -311,6 +311,15 @@ gzip), which is the default compression for most PDF files.
 You need --recompress-flate with this option if you want to
 change already compressed streams.
 .TP
+.B --jpeg-quality-level \-\- TODO set jpeg quality level for jpeg
+--jpeg-quality-level=level
+
+Set a compression level from 1 (least, fastest) to 100 (most,
+slowest) when compressing files with flate (used in zip and
+gzip), which is the default compression for most PDF files.
+You need --recompress-flate with this option if you want to
+change already compressed streams.
+.TP
 .B --normalize-content \-\- fix newlines in content streams
 --normalize-content=[y|n]
 

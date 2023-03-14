@@ -37,6 +37,7 @@ Pl_DCT::Members::Members(
     JDIMENSION image_width,
     JDIMENSION image_height,
     int components,
+    int quality_level,
     J_COLOR_SPACE color_space,
     CompressConfig* config_callback) :
     action(action),
@@ -44,6 +45,7 @@ Pl_DCT::Members::Members(
     image_width(image_width),
     image_height(image_height),
     components(components),
+    quality_level(quality_level),
     color_space(color_space),
     config_callback(config_callback)
 {
@@ -61,6 +63,7 @@ Pl_DCT::Pl_DCT(
     JDIMENSION image_width,
     JDIMENSION image_height,
     int components,
+    int quality_level,
     J_COLOR_SPACE color_space,
     CompressConfig* config_callback) :
     Pipeline(identifier, next),
@@ -70,6 +73,7 @@ Pl_DCT::Pl_DCT(
         image_width,
         image_height,
         components,
+        quality_level,
         color_space,
         config_callback))
 {
@@ -269,6 +273,7 @@ Pl_DCT::compress(void* cinfo_p, Buffer* b)
     cinfo->input_components = m->components;
     cinfo->in_color_space = m->color_space;
     jpeg_set_defaults(cinfo);
+    jpeg_set_quality(cinfo, m->quality_level, false);
     if (m->config_callback) {
         m->config_callback->apply(cinfo);
     }

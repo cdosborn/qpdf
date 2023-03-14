@@ -234,6 +234,14 @@ gzip), which is the default compression for most PDF files.
 You need --recompress-flate with this option if you want to
 change already compressed streams.
 )");
+ap.addOptionHelp("--jpeg-quality-level", "transformation", "TODO set jpeg quality level for jpeg", R"(--jpeg-quality-level=level
+
+Set a compression level from 1 (least, fastest) to 100 (most,
+slowest) when compressing files with flate (used in zip and
+gzip), which is the default compression for most PDF files.
+You need --recompress-flate with this option if you want to
+change already compressed streams.
+)");
 ap.addOptionHelp("--normalize-content", "transformation", "fix newlines in content streams", R"(--normalize-content=[y|n]
 
 Normalize newlines to UNIX-style newlines in PDF content
@@ -285,6 +293,9 @@ Force the output PDF file's PDF version header to be the specified
 value, even if the file uses features that may not be available
 in that version.
 )");
+}
+static void add_help_4(QPDFArgParser& ap)
+{
 ap.addHelpTopic("page-ranges", "page range syntax", R"(A full description of the page range syntax, with examples, can be
 found in the manual. In summary, a range is a comma-separated list
 of groups. A group is a number or a range of numbers separated by a
@@ -305,9 +316,6 @@ resulting set of pages, where :odd starts with the first page and
 :even starts with the second page. These are odd and even pages
 from the resulting set, not based on the original page numbers.
 )");
-}
-static void add_help_4(QPDFArgParser& ap)
-{
 ap.addHelpTopic("modification", "change parts of the PDF", R"(Modification options make systematic changes to certain parts of
 the PDF, causing the PDF to render differently from the original.
 )");
@@ -416,6 +424,9 @@ ap.addOptionHelp("--keep-inline-images", "modification", "exclude inline images 
 )");
 ap.addOptionHelp("--remove-page-labels", "modification", "remove explicit page numbers", R"(Exclude page labels (explicit page numbers) from the output file.
 )");
+}
+static void add_help_5(QPDFArgParser& ap)
+{
 ap.addOptionHelp("--set-page-labels", "modification", "number pages for the entire document", R"(--set-page-labels label-spec ... --
 
 Set page labels (explicit page numbers) for the entire file.
@@ -460,9 +471,6 @@ iv, then the remaining pages with Arabic numerals starting with
 1 and continuing sequentially until the end of the document. For
 additional examples, please consult the manual.
 )");
-}
-static void add_help_5(QPDFArgParser& ap)
-{
 ap.addHelpTopic("encryption", "create encrypted files", R"(Create encrypted files. Usage:
 
 --encrypt \
@@ -699,6 +707,9 @@ Examples:
 
 More examples are in the manual.
 )");
+}
+static void add_help_6(QPDFArgParser& ap)
+{
 ap.addHelpTopic("overlay-underlay", "overlay/underlay pages from other files", R"(These options allow pages from another file to be overlaid or
 underlaid on the primary output. Overlaid pages are drawn on top of
 the destination page and may obscure the page. Underlaid pages are
@@ -725,9 +736,6 @@ appearance: first underlays, then the original page, then overlays.
 
 Run qpdf --help=page-ranges for help with page ranges.
 )");
-}
-static void add_help_6(QPDFArgParser& ap)
-{
 ap.addOptionHelp("--to", "overlay-underlay", "destination pages for underlay/overlay", R"(--to=page-range
 
 Specify the range of pages in the primary output to apply
@@ -835,13 +843,13 @@ Prepend a prefix to each key; may be needed if there are
 duplicate attachment keys. This affects the key only, not the
 file name.
 )");
+}
+static void add_help_7(QPDFArgParser& ap)
+{
 ap.addHelpTopic("inspection", "inspect PDF files", R"(These options provide tools for inspecting PDF files. When any of
 the options in this section are specified, no output file may be
 given.
 )");
-}
-static void add_help_7(QPDFArgParser& ap)
-{
 ap.addOptionHelp("--is-encrypted", "inspection", "silently test whether a file is encrypted", R"(Silently exit with a code indicating the file's encryption status:
 
 0: the file is encrypted
@@ -926,15 +934,15 @@ depth in the JSON section of the manual. "version" may be a
 specific version or "latest" (the default). Run qpdf --json-help
 for a description of the generated JSON object.
 )");
+}
+static void add_help_8(QPDFArgParser& ap)
+{
 ap.addOptionHelp("--json-help", "json", "show format of JSON output", R"(--json-help[=version]
 
 Describe the format of the JSON output by writing to standard
 output a JSON object with the same keys and with values
 containing descriptive text.
 )");
-}
-static void add_help_8(QPDFArgParser& ap)
-{
 ap.addOptionHelp("--json-key", "json", "limit which keys are in JSON output", R"(--json-key=key
 
 This option is repeatable. If given, only the specified

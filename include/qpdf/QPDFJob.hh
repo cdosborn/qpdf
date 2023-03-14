@@ -581,6 +581,7 @@ class QPDFJob
         static int constexpr DEFAULT_OI_MIN_HEIGHT = 128;
         static int constexpr DEFAULT_OI_MIN_AREA = 16384;
         static int constexpr DEFAULT_II_MIN_BYTES = 1024;
+        static int constexpr DEFAULT_JPEG_QUALITY_LEVEL = 75;
 
         Members();
         Members(Members const&) = delete;
@@ -633,6 +634,7 @@ class QPDFJob
         bool recompress_flate{false};
         bool recompress_flate_set{false};
         int compression_level{-1};
+        int jpeg_quality_level{DEFAULT_JPEG_QUALITY_LEVEL};
         qpdf_stream_decode_level_e decode_level{qpdf_dl_generalized};
         bool decode_level_set{false};
         bool normalize_set{false};

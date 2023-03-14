@@ -1011,6 +1011,29 @@ Related Options
    :samp:`--object-streams=generate`. If you omit this option, qpdf
    defers to the compression library's default behavior.
 
+.. qpdf:option:: --jpeg-quality-level=level
+
+   .. help: TODO set jpeg quality level for jpeg
+
+      Set a compression level from 1 (least, fastest) to 100 (most,
+      slowest) when compressing files with flate (used in zip and
+      gzip), which is the default compression for most PDF files.
+      You need --recompress-flate with this option if you want to
+      change already compressed streams.
+
+   When writing new streams that are compressed with ``/FlateDecode``,
+   use the specified compression level. The value of :samp:`level`
+   should be a number from 1 to 9 and is passed directly to zlib,
+   which implements deflate compression. Lower numbers compress less
+   and are faster; higher numbers compress more and are slower. Note
+   that :command:`qpdf` doesn't uncompress and recompress streams
+   compressed with flate by default. To have this option apply to
+   already compressed streams, you should also specify
+   :qpdf:ref:`--recompress-flate`. If your goal is to shrink the size
+   of PDF files, you should also use
+   :samp:`--object-streams=generate`. If you omit this option, qpdf
+   defers to the compression library's default behavior.
+
 .. qpdf:option:: --normalize-content=[y|n]
 
    .. help: fix newlines in content streams
